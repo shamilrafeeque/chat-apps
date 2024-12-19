@@ -8,6 +8,9 @@ ENV PYTHONUNBUFFERED 1
 # Set working directory
 WORKDIR /app
 
+# Install system dependencies
+RUN apt-get update && apt-get install -y gcc libpq-dev
+
 # Copy requirements file and install dependencies
 COPY requirements.txt /app/
 RUN python -m pip install --upgrade pip setuptools && pip install -r requirements.txt

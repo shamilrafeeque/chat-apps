@@ -3,9 +3,14 @@ version: '3'
 services:
   web:
     build: .
-    entrypoint: ["python3", "manage.py", "runserver", "0.0.0.0:8000"]
+    entrypoint: ["daphne", "-b", "0.0.0.0", "-p", "8000", "chat.asgi:application"]
     volumes:
       - .:/app
     ports:
       - "8000:8000"
     restart: always
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:alpine
